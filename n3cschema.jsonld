@@ -31,28 +31,6 @@
             "description": "Longer description of what is contained in the dataset",
             "type": "string"
           },
-          "author": {
-            "description": "Name of the author or organization that created the dataset.  Note: schema.org/author and schema.org/organization have additional fields that can provide more information about the author/organization, if desired.",
-            "anyOf": [{
-                "$ref": "#/definitions/person"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/person"
-                }
-              },
-              {
-                "$ref": "#/definitions/organization"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/organization"
-                }
-              }
-            ]
-          },
           "license": {
             "description": "A license document that applies to this content, typically indicated by a URL.",
             "type": "string"
