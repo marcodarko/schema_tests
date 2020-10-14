@@ -541,7 +541,6 @@ paths:
               example:
                 feature:
                   Sex:
-                    operator: !=
                     value: Female
                 maximum_p_value: 1
       parameters:
@@ -581,7 +580,6 @@ paths:
               example:
                 feature:
                   Sex:
-                    operator: !=
                     value: Female
                 maximum_p_value: 1
       parameters:
@@ -621,11 +619,9 @@ paths:
               example:
                 feature_a:
                   Sex:
-                    operator: !=
                     value: Female
                 feature_b:
                   AsthmaDx:
-                    operator: !=
                     value: 1
       parameters:
         - description: the table patient|visit
@@ -664,16 +660,11 @@ paths:
               example:
                 feature_a:
                   Sex:
-                    - operator: !=
                       value: Female
-                    - operator: !=
                       value: Male
                 feature_b:
                   AsthmaDx:
-                    - operator: !=
                       value: 1
-                    - operator: !=
-                      value: 0
       parameters:
         - description: the table patient|visit
           in: path
