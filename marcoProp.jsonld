@@ -1,0 +1,81 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "marco": "https://discovery.biothings.io/view/marco/"
+  },
+  "@graph": [
+    {
+      "@id": "marco:MyClass",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "this is for the test to try to save to github directly fskdjhflhsadl fjlkasjdlfkjsadlkjflksda",
+      "rdfs:label": "MyClass",
+      "rdfs:subClassOf": {
+        "@id": "schema:Dataset"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "myProp": {
+            "description": "fsdfasdfasdfdsaf",
+            "type": "string"
+          },
+          "marcoProp": {
+            "description": "fsdfsdafsdf",
+            "type": "boolean"
+          },
+          "accessModeSufficient": {
+            "description": "A list of single or combined accessModes that are sufficient to understand all the intellectual content of a resource. Expected values include:  auditory, tactile, textual, visual.",
+            "type": "string"
+          },
+          "disambiguatingDescription": {
+            "description": "A sub property of description. A short description of the item used to disambiguate from other, similar items. Information from other properties (in particular, name) may be necessary for the description to be useful for disambiguation.",
+            "type": "string"
+          },
+          "image": {
+            "description": "An image of the item. This can be a <a class=\"localLink\" href=\"http://schema.org/URL\">URL</a> or a fully described <a class=\"localLink\" href=\"http://schema.org/ImageObject\">ImageObject</a>.",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "recommended": [],
+        "optional": [
+          "accessModeSufficient"
+        ]
+      }
+    },
+    {
+      "@id": "marco:myProp",
+      "@type": "rdf:Property",
+      "rdfs:comment": "fsdfasdfasdfdsaf",
+      "rdfs:label": "myProp",
+      "schema:domainIncludes": {
+        "@id": "marco:MyClass"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "marco:marcoProp",
+      "@type": "rdf:Property",
+      "rdfs:comment": "fsdfsdafsdf",
+      "rdfs:label": "marcoProp",
+      "schema:domainIncludes": {
+        "@id": "marco:MyClass"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:MedicalDevicePurpose"
+        },
+        {
+          "@id": ""
+        }
+      ]
+    }
+  ]
+}
