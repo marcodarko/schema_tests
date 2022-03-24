@@ -12,15 +12,14 @@
       "rdfs:comment": "this is for the test to try to save to github directly fskdjhflhsadl fjlkasjdlfkjsadlkjflksda",
       "rdfs:label": "MyClass",
       "rdfs:subClassOf": {
-        "@id": "schema:Dataset"
+        "@id": "schema:Marco"
       },
       "$validation": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
           "myProp": {
-            "description": "fsdfasdfasdfdsaf",
-            "type": "string"
+            
           },
           "marcoProp": {
             "description": "fsdfsdafsdf",
