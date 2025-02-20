@@ -1,176 +1,177 @@
 {
   "@context": {
-    "schema": "http://schema.org/",
+    "owl": "http://www.w3.org/2002/07/owl#",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "bioschemas": "https://discovery.biothings.io/ns/bioschemas/",
+    "niaid": "https://discovery.biothings.io/view/niaid/",
     "move": "https://discovery.biothings.io/ns/move/"
   },
   "@graph": [
     {
       "@id": "move:Dataset",
       "@type": "rdfs:Class",
-      "rdfs:comment": "a dataset schema for the MOVE consortium ",
+      "rdfs:comment": "The overall mission of the Multi-Omics Vaccine Evaluation (MOVE) Consortium is to accelerate development of an HIV vaccine by parallelizing the design and testing of a matrix of complementary immunogens that reliably induce broad, durable immunity.",
       "rdfs:label": "Dataset",
       "rdfs:subClassOf": {
-        "@id": "n3c:Dataset"
+        "@id": "niaid:Dataset"
       },
       "$validation": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "myProp": {
-            "description": "test property",
-            "type": "string"
-          },
-          "contain_geo_codes": {
-            "description": "Does the dataset contains GEO codes (e.g. zip codes)?",
-            "type": "boolean"
-          },
-          "contain_phi": {
-            "description": "Does the dataset contains Protected health information (PHI)? If so, provide more info, otherwise, enter No",
-            "type": "string"
-          },
-          "doi": {
-            "description": "DOI for the dataset if available",
-            "type": "string"
-          },
-          "cost": {
-            "description": "Specify the cost to obtain the dataset, \"Free\", \"Subscription\" or others",
-            "type": "string"
-          },
-          "domain_team_relevance": {
-            "description": "Does the dataset intend to use in an existing domain team?",
-            "oneOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "General use",
-                  "Acute Kidney Injury (AKI)",
-                  "Applicable Data Methods Standards (ADM&S)",
-                  "COVID-19 Vaccination",
-                  "Cardiovascular Disease",
-                  "Critical Care, Ventilation, Multi-organ Dysfunction Syndrome (MODS)",
-                  "Diabetes & Obesity",
-                  "Elder Impact",
-                  "Emergency Serivces or Medicine",
-                  "Genomics",
-                  "HPO - OMOP",
-                  "Imaging",
-                  "Immuno-suppressed/compromised (ISC)",
-                  "Long COVID",
-                  "Machine Learning (ML)",
-                  "Neurology",
-                  "Oncology",
-                  "Pediatrics",
-                  "Perioperative",
-                  "Pharma-commercial",
-                  "Pharmacoepidemiology",
-                  "Pregnancy",
-                  "Rural Health",
-                  "Short & Long-term Complications",
-                  "Social Determinits of Health (SDoH)",
-                  "Other - describe in justification text"
-                ]
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "enum": [
-                    "General use",
-                    "Acute Kidney Injury (AKI)",
-                    "Applicable Data Methods Standards (ADM&S)",
-                    "COVID-19 Vaccination",
-                    "Cardiovascular Disease",
-                    "Critical Care, Ventilation, Multi-organ Dysfunction Syndrome (MODS)",
-                    "Diabetes & Obesity",
-                    "Elder Impact",
-                    "Emergency Serivces or Medicine",
-                    "Genomics",
-                    "HPO - OMOP",
-                    "Imaging",
-                    "Immuno-suppressed/compromised (ISC)",
-                    "Long COVID",
-                    "Machine Learning (ML)",
-                    "Neurology",
-                    "Oncology",
-                    "Pediatrics",
-                    "Perioperative",
-                    "Pharma-commercial",
-                    "Pharmacoepidemiology",
-                    "Pregnancy",
-                    "Rural Health",
-                    "Short & Long-term Complications",
-                    "Social Determinits of Health (SDoH)",
-                    "Other - describe in justification text"
-                  ]
-                }
-              }
-            ]
-          },
-          "justification": {
-            "description": "How is the dataset relevant to the N3C project, why does the community want and how can it be used?",
-            "type": "string"
-          },
-          "contact": {
-            "description": "Provide an email contact",
-            "type": "string",
-            "format": "email"
-          },
-          "standards_used": {
-            "description": "A list of standards used in the dataset, e.g. OMOP.",
-            "oneOf": [
-              {
+          "sourceOrganizationMOVE": {
+            "description": "source organization",
+            "owl:cardinality": "many",
+            "@type": "Organization",
+            "type": "object",
+            "properties": {
+              "description": {
                 "type": "string"
               },
+              "legalName": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sameAs": {
+                "type": "string",
+                "format": "uri"
+              },
+              "topic": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                ]
+              },
+              "type": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "description",
+              "legalName",
+              "name",
+              "sameAs",
+              "topic",
+              "type"
+            ]
+          },
+          "infectiousAgent": {
+            "description": "Infectious agent(s) / pathogen(s) which are the focus of the dataset or tool (e.g. SARS-CoV-2)",
+            "owl:cardinality": "many",
+            "oneOf": [
+              {
+                "description": "collection of vocabulary terms defined in ontologies",
+                "@type": "DefinedTerm",
+                "type": "string",
+                "vocabulary": {
+                  "ontology": [
+                    "ncbitaxon"
+                  ],
+                  "children_of": [
+                    "http://purl.obolibrary.org/obo/NCBITaxon_10239",
+                    "http://purl.obolibrary.org/obo/NCBITaxon_2"
+                  ]
+                },
+                "strict": false
+              },
               {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "description": "collection of vocabulary terms defined in ontologies",
+                  "@type": "DefinedTerm",
+                  "type": "string",
+                  "vocabulary": {
+                    "ontology": [
+                      "ncbitaxon"
+                    ],
+                    "children_of": [
+                      "http://purl.obolibrary.org/obo/NCBITaxon_10239",
+                      "http://purl.obolibrary.org/obo/NCBITaxon_2"
+                    ]
+                  },
+                  "strict": false
                 }
               }
             ]
           },
-          "release_frequency": {
-            "description": "How frequent is the new version of the dataset released (monthly, quarterly, etc)",
-            "type": "string"
-          },
-          "documentation": {
-            "description": "Provide the URL to the detailed documentation about the dataset",
-            "type": "string",
-            "format": "uri"
+          "healthCondition": {
+            "description": "The infectious disease(s) / health condition(s) which are the focus of the dataset or computational tool (e.g. COVID-19, coronavirus)",
+            "owl:cardinality": "many",
+            "oneOf": [
+              {
+                "description": "collection of vocabulary terms defined in ontologies",
+                "@type": "DefinedTerm",
+                "type": "string",
+                "vocabulary": {
+                  "ontology": [
+                    "mondo"
+                  ],
+                  "children_of": [
+                    "http://purl.obolibrary.org/obo/MONDO_0000001"
+                  ]
+                },
+                "strict": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "collection of vocabulary terms defined in ontologies",
+                  "@type": "DefinedTerm",
+                  "type": "string",
+                  "vocabulary": {
+                    "ontology": [
+                      "mondo"
+                    ],
+                    "children_of": [
+                      "http://purl.obolibrary.org/obo/MONDO_0000001"
+                    ]
+                  },
+                  "strict": false
+                }
+              }
+            ]
           },
           "funding": {
-            "description": "Funding for the generation of the dataset",
+            "description": "Funding that supports (sponsors) the collection of this dataset or computational tool through some kind of financial contribution",
+            "owl:cardinality": "many",
             "oneOf": [
               {
                 "type": "object",
                 "@type": "MonetaryGrant",
-                "description": "Information about funding support",
+                "description": "Funding that supports (sponsors) the collection of this dataset through some kind of financial contribution",
                 "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the monetary grant that funded/funds the Dataset"
-                  },
-                  "identifier": {
-                    "type": "string",
-                    "description": "Unique identifier(s) for the grant(s) used to fund the Dataset"
-                  },
                   "funder": {
-                    "description": "name of the funding organization",
+                    "description": "An organization associated with a creator or funder of a dataset",
                     "oneOf": [
                       {
-                        "description": "A barebones Organization object to work around recursion issues in DDE",
-                        "@type": "Organization",
                         "type": "object",
+                        "@type": "Organization",
+                        "description": "Information about a single funder",
                         "properties": {
                           "name": {
-                            "description": "name of the organization",
-                            "type": "string"
+                            "type": "string",
+                            "description": "An organization associated with a creator or funder of a dataset"
                           },
-                          "alternateName": {
-                            "description": "Alternate name or Acronym for the organization",
-                            "type": "string"
+                          "parentOrganization": {
+                            "type": "string",
+                            "description": "name of the parent funding organization"
                           }
                         },
                         "required": [
@@ -180,17 +181,17 @@
                       {
                         "type": "array",
                         "items": {
-                          "description": "A barebones Organization object to work around recursion issues in DDE",
-                          "@type": "Organization",
                           "type": "object",
+                          "@type": "Organization",
+                          "description": "Information about a single funder",
                           "properties": {
                             "name": {
-                              "description": "name of the organization",
-                              "type": "string"
+                              "type": "string",
+                              "description": "An organization associated with a creator or funder of a dataset"
                             },
-                            "alternateName": {
-                              "description": "Alternate name or Acronym for the organization",
-                              "type": "string"
+                            "parentOrganization": {
+                              "type": "string",
+                              "description": "name of the parent funding organization"
                             }
                           },
                           "required": [
@@ -200,14 +201,22 @@
                       }
                     ]
                   },
+                  "description": {
+                    "type": "string",
+                    "description": "description about the funding award / grant"
+                  },
                   "url": {
                     "type": "string",
-                    "format": "uri",
-                    "description": "award URL"
+                    "description": "award / grant URL"
+                  },
+                  "identifier": {
+                    "type": "string",
+                    "description": "Unique identifier(s) for the grant(s) used to fund the Dataset"
                   }
                 },
                 "required": [
-                  "funder"
+                  "funder",
+                  "identifier"
                 ]
               },
               {
@@ -215,31 +224,23 @@
                 "items": {
                   "type": "object",
                   "@type": "MonetaryGrant",
-                  "description": "Information about funding support",
+                  "description": "Funding that supports (sponsors) the collection of this dataset through some kind of financial contribution",
                   "properties": {
-                    "name": {
-                      "type": "string",
-                      "description": "The name of the monetary grant that funded/funds the Dataset"
-                    },
-                    "identifier": {
-                      "type": "string",
-                      "description": "Unique identifier(s) for the grant(s) used to fund the Dataset"
-                    },
                     "funder": {
-                      "description": "name of the funding organization",
+                      "description": "An organization associated with a creator or funder of a dataset",
                       "oneOf": [
                         {
-                          "description": "A barebones Organization object to work around recursion issues in DDE",
-                          "@type": "Organization",
                           "type": "object",
+                          "@type": "Organization",
+                          "description": "Information about a single funder",
                           "properties": {
                             "name": {
-                              "description": "name of the organization",
-                              "type": "string"
+                              "type": "string",
+                              "description": "An organization associated with a creator or funder of a dataset"
                             },
-                            "alternateName": {
-                              "description": "Alternate name or Acronym for the organization",
-                              "type": "string"
+                            "parentOrganization": {
+                              "type": "string",
+                              "description": "name of the parent funding organization"
                             }
                           },
                           "required": [
@@ -249,17 +250,17 @@
                         {
                           "type": "array",
                           "items": {
-                            "description": "A barebones Organization object to work around recursion issues in DDE",
-                            "@type": "Organization",
                             "type": "object",
+                            "@type": "Organization",
+                            "description": "Information about a single funder",
                             "properties": {
                               "name": {
-                                "description": "name of the organization",
-                                "type": "string"
+                                "type": "string",
+                                "description": "An organization associated with a creator or funder of a dataset"
                               },
-                              "alternateName": {
-                                "description": "Alternate name or Acronym for the organization",
-                                "type": "string"
+                              "parentOrganization": {
+                                "type": "string",
+                                "description": "name of the parent funding organization"
                               }
                             },
                             "required": [
@@ -269,24 +270,161 @@
                         }
                       ]
                     },
+                    "description": {
+                      "type": "string",
+                      "description": "description about the funding award / grant"
+                    },
                     "url": {
                       "type": "string",
-                      "format": "uri",
-                      "description": "award URL"
+                      "description": "award / grant URL"
+                    },
+                    "identifier": {
+                      "type": "string",
+                      "description": "Unique identifier(s) for the grant(s) used to fund the Dataset"
                     }
                   },
                   "required": [
-                    "funder"
+                    "funder",
+                    "identifier"
                   ]
                 }
               }
             ]
           },
-          "includedInDataCatalog": {
-            "description": "A data catalog which contains this dataset.",
+          "species": {
+            "description": "Species(es) from which dataset has been collected or for which the tool was designed or applied.",
+            "owl:cardinality": "many",
             "oneOf": [
               {
-                "description": "A data catalog which contains this dataset.",
+                "description": "collection of vocabulary terms defined in ontologies",
+                "@type": "DefinedTerm",
+                "type": "string",
+                "vocabulary": {
+                  "ontology": [
+                    "ncbitaxon"
+                  ],
+                  "children_of": [
+                    "http://purl.obolibrary.org/obo/NCBITaxon_131567",
+                    "http://purl.obolibrary.org/obo/NCBITaxon_10239"
+                  ]
+                },
+                "strict": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "collection of vocabulary terms defined in ontologies",
+                  "@type": "DefinedTerm",
+                  "type": "string",
+                  "vocabulary": {
+                    "ontology": [
+                      "ncbitaxon"
+                    ],
+                    "children_of": [
+                      "http://purl.obolibrary.org/obo/NCBITaxon_131567",
+                      "http://purl.obolibrary.org/obo/NCBITaxon_10239"
+                    ]
+                  },
+                  "strict": false
+                }
+              }
+            ]
+          },
+          "distribution": {
+            "description": "A downloadable form of this dataset, at a specific location, in a specific format.",
+            "owl:cardinality": "many",
+            "oneOf": [
+              {
+                "description": "A dataset in downloadable form.",
+                "@type": "DataDownload",
+                "type": "object",
+                "properties": {
+                  "dateModified": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "contentUrl": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "dateModified",
+                  "contentUrl"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "A dataset in downloadable form.",
+                  "@type": "DataDownload",
+                  "type": "object",
+                  "properties": {
+                    "dateModified": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "contentUrl": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  },
+                  "required": [
+                    "dateModified",
+                    "contentUrl"
+                  ]
+                }
+              }
+            ]
+          },
+          "measurementTechnique": {
+            "description": "A technique or technology used in a [[Dataset]] (or [[DataDownload]], [[DataCatalog]]),\ncorresponding to the method used for measuring the corresponding variable(s) (described using [[variableMeasured]]). This is oriented towards scientific and scholarly dataset publication but may have broader applicability; it is not intended as a full representation of measurement, but rather as a high level summary for dataset discovery.\n\nFor example, if [[variableMeasured]] is: molecule concentration, [[measurementTechnique]] could be: \"mass spectrometry\" or \"nmr spectroscopy\" or \"colorimetry\" or \"immunofluorescence\".\n\nIf the [[variableMeasured]] is \"depression rating\", the [[measurementTechnique]] could be \"Zung Scale\" or \"HAM-D\" or \"Beck Depression Inventory\".\n\nIf there are several [[variableMeasured]] properties recorded for some given data object, use a [[PropertyValue]] for each [[variableMeasured]] and attach the corresponding [[measurementTechnique]].\n      ",
+            "owl:cardinality": "many",
+            "oneOf": [
+              {
+                "description": "collection of vocabulary terms defined in ontologies",
+                "@type": "DefinedTerm",
+                "type": "string",
+                "vocabulary": {
+                  "ontology": [
+                    "edam",
+                    "ncit"
+                  ],
+                  "children_of": [
+                    "http://edamontology.org/topic_3361",
+                    "http://purl.obolibrary.org/obo/NCIT_C20368"
+                  ]
+                },
+                "strict": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "collection of vocabulary terms defined in ontologies",
+                  "@type": "DefinedTerm",
+                  "type": "string",
+                  "vocabulary": {
+                    "ontology": [
+                      "edam",
+                      "ncit"
+                    ],
+                    "children_of": [
+                      "http://edamontology.org/topic_3361",
+                      "http://purl.obolibrary.org/obo/NCIT_C20368"
+                    ]
+                  },
+                  "strict": false
+                }
+              }
+            ]
+          },
+          "citation": {
+            "description": "A citation or reference to another creative work, such as another publication, web page, scholarly article, etc.",
+            "owl:cardinality": "many",
+            "oneOf": [
+              {
+                "description": "A scholarly article in which the dataset is cited.",
+                "@type": "ScholarlyArticle",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -296,12 +434,16 @@
                     "type": "string",
                     "format": "uri"
                   }
-                }
+                },
+                "required": [
+                  "url"
+                ]
               },
               {
                 "type": "array",
                 "items": {
-                  "description": "A data catalog which contains this dataset.",
+                  "description": "A scholarly article in which the dataset is cited.",
+                  "@type": "ScholarlyArticle",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -311,116 +453,25 @@
                       "type": "string",
                       "format": "uri"
                     }
-                  }
-                }
-              }
-            ]
-          },
-          "measurementTechnique": {
-            "description": "A technique or technology used in a [[Dataset]] (or [[DataDownload]], [[DataCatalog]]),\ncorresponding to the method used for measuring the corresponding variable(s) (described using [[variableMeasured]]). This is oriented towards scientific and scholarly dataset publication but may have broader applicability; it is not intended as a full representation of measurement, but rather as a high level summary for dataset discovery.\n\nFor example, if [[variableMeasured]] is: molecule concentration, [[measurementTechnique]] could be: \"mass spectrometry\" or \"nmr spectroscopy\" or \"colorimetry\" or \"immunofluorescence\".\n\nIf the [[variableMeasured]] is \"depression rating\", the [[measurementTechnique]] could be \"Zung Scale\" or \"HAM-D\" or \"Beck Depression Inventory\".\n\nIf there are several [[variableMeasured]] properties recorded for some given data object, use a [[PropertyValue]] for each [[variableMeasured]] and attach the corresponding [[measurementTechnique]].\n      ",
-            "oneOf": [
-              {
-                "description": "collection of vocabulary terms defined in ontologies",
-                "@type": "CreativeWork",
-                "type": "string",
-                "vocabulary": {
-                  "ontology": [
-                    "efo",
-                    "ncit",
-                    "obi"
-                  ],
-                  "children_of": [
-                    "https://www.ebi.ac.uk/efo/EFO_0002694",
-                    "http://purl.obolibrary.org/obo/NCIT_C20368",
-                    "http://purl.obolibrary.org/obo/OBI_0000011"
-                  ]
-                },
-                "strict": false
-              },
-              {
-                "type": "array",
-                "items": {
-                  "description": "collection of vocabulary terms defined in ontologies",
-                  "@type": "CreativeWork",
-                  "type": "string",
-                  "vocabulary": {
-                    "ontology": [
-                      "efo",
-                      "ncit",
-                      "obi"
-                    ],
-                    "children_of": [
-                      "https://www.ebi.ac.uk/efo/EFO_0002694",
-                      "http://purl.obolibrary.org/obo/NCIT_C20368",
-                      "http://purl.obolibrary.org/obo/OBI_0000011"
-                    ]
                   },
-                  "strict": false
+                  "required": [
+                    "url"
+                  ]
                 }
               }
             ]
           },
-          "author": {
-            "description": "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.",
+          "creator": {
+            "description": "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.",
+            "owl:cardinality": "many",
             "anyOf": [
               {
                 "description": "Reusable person definition",
                 "@type": "Person",
                 "type": "object",
                 "properties": {
-                  "@type": {
-                    "const": "Person"
-                  },
                   "name": {
                     "type": "string"
-                  },
-                  "orcid": {
-                    "description": "Enter your ORCID ID (https://orcid.org/xxxx-xxxx-xxxx-xxxx)",
-                    "type": "string",
-                    "pattern": "^https:\\/\\/orcid\\.org\\/\\d{4}-\\d{4}-\\d{4}-\\d{4}$"
-                  },
-                  "affiliation": {
-                    "oneOf": [
-                      {
-                        "description": "A barebones Organization object to work around recursion issues in DDE",
-                        "@type": "Organization",
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "description": "name of the organization",
-                            "type": "string"
-                          },
-                          "alternateName": {
-                            "description": "Alternate name or Acronym for the organization",
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "name"
-                        ]
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "description": "A barebones Organization object to work around recursion issues in DDE",
-                          "@type": "Organization",
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "description": "name of the organization",
-                              "type": "string"
-                            },
-                            "alternateName": {
-                              "description": "Alternate name or Acronym for the organization",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "name"
-                          ]
-                        }
-                      }
-                    ]
                   }
                 },
                 "required": [
@@ -434,59 +485,8 @@
                   "@type": "Person",
                   "type": "object",
                   "properties": {
-                    "@type": {
-                      "const": "Person"
-                    },
                     "name": {
                       "type": "string"
-                    },
-                    "orcid": {
-                      "description": "Enter your ORCID ID (https://orcid.org/xxxx-xxxx-xxxx-xxxx)",
-                      "type": "string",
-                      "pattern": "^https:\\/\\/orcid\\.org\\/\\d{4}-\\d{4}-\\d{4}-\\d{4}$"
-                    },
-                    "affiliation": {
-                      "oneOf": [
-                        {
-                          "description": "A barebones Organization object to work around recursion issues in DDE",
-                          "@type": "Organization",
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "description": "name of the organization",
-                              "type": "string"
-                            },
-                            "alternateName": {
-                              "description": "Alternate name or Acronym for the organization",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "name"
-                          ]
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "description": "A barebones Organization object to work around recursion issues in DDE",
-                            "@type": "Organization",
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "description": "name of the organization",
-                                "type": "string"
-                              },
-                              "alternateName": {
-                                "description": "Alternate name or Acronym for the organization",
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "name"
-                            ]
-                          }
-                        }
-                      ]
                     }
                   },
                   "required": [
@@ -499,21 +499,8 @@
                 "@type": "Organization",
                 "type": "object",
                 "properties": {
-                  "@type": {
-                    "const": "Organization"
-                  },
                   "name": {
-                    "description": "name of the organization",
                     "type": "string"
-                  },
-                  "alternateName": {
-                    "description": "Alternate name or Acronym for the organization",
-                    "type": "string"
-                  },
-                  "url": {
-                    "description": "The url to the organization",
-                    "type": "string",
-                    "format": "uri"
                   }
                 },
                 "required": [
@@ -527,21 +514,8 @@
                   "@type": "Organization",
                   "type": "object",
                   "properties": {
-                    "@type": {
-                      "const": "Organization"
-                    },
                     "name": {
-                      "description": "name of the organization",
                       "type": "string"
-                    },
-                    "alternateName": {
-                      "description": "Alternate name or Acronym for the organization",
-                      "type": "string"
-                    },
-                    "url": {
-                      "description": "The url to the organization",
-                      "type": "string",
-                      "format": "uri"
                     }
                   },
                   "required": [
@@ -551,37 +525,22 @@
               }
             ]
           },
-          "citation": {
-            "description": "A citation or reference to another creative work, such as another publication, web page, scholarly article, etc.",
-            "oneOf": [
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "type": "string",
+            "owl:cardinality": "one",
+            "format": "uri"
+          },
+          "sdPublisher": {
+            "description": "Indicates the party responsible for generating and publishing the current structured data markup, typically in cases where the structured data is derived automatically from existing published content but published on a different site. For example, student projects and open data initiatives often re-publish existing content with more explicitly structured metadata. The\n[[sdPublisher]] property helps make such practices more explicit.",
+            "owl:cardinality": "many",
+            "anyOf": [
               {
-                "description": "A citation object for a resource which is cited by the dataset (ie- is a derivative of the dataset) , related to the dataset, or from which the dataset was based on (ie- is derived from).",
-                "@type": "Thing",
+                "description": "Reusable person definition",
+                "@type": "Person",
                 "type": "object",
                 "properties": {
                   "name": {
-                    "description": "Name of or title of the citation",
-                    "type": "string"
-                  },
-                  "identifier": {
-                    "description": "An identifier associated with the citation",
-                    "type": "string"
-                  },
-                  "pmid": {
-                    "description": "A pubmed identifier if available",
-                    "type": "string"
-                  },
-                  "doi": {
-                    "description": "A doi if available",
-                    "type": "string"
-                  },
-                  "url": {
-                    "description": "The url of the resource cited",
-                    "type": "string",
-                    "format": "uri"
-                  },
-                  "citeText": {
-                    "description": "The bibliographic citation for the referenced resource as is provided",
                     "type": "string"
                   }
                 },
@@ -592,33 +551,40 @@
               {
                 "type": "array",
                 "items": {
-                  "description": "A citation object for a resource which is cited by the dataset (ie- is a derivative of the dataset) , related to the dataset, or from which the dataset was based on (ie- is derived from).",
-                  "@type": "Thing",
+                  "description": "Reusable person definition",
+                  "@type": "Person",
                   "type": "object",
                   "properties": {
                     "name": {
-                      "description": "Name of or title of the citation",
                       "type": "string"
-                    },
-                    "identifier": {
-                      "description": "An identifier associated with the citation",
-                      "type": "string"
-                    },
-                    "pmid": {
-                      "description": "A pubmed identifier if available",
-                      "type": "string"
-                    },
-                    "doi": {
-                      "description": "A doi if available",
-                      "type": "string"
-                    },
-                    "url": {
-                      "description": "The url of the resource cited",
-                      "type": "string",
-                      "format": "uri"
-                    },
-                    "citeText": {
-                      "description": "The bibliographic citation for the referenced resource as is provided",
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              {
+                "description": "Reusable organization definition",
+                "@type": "Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Reusable organization definition",
+                  "@type": "Organization",
+                  "type": "object",
+                  "properties": {
+                    "name": {
                       "type": "string"
                     }
                   },
@@ -629,12 +595,310 @@
               }
             ]
           },
-          "comment": {
-            "description": "Comments, typically from users.",
+          "spatialCoverage": {
+            "description": "The spatialCoverage of a CreativeWork indicates the place(s) which are the focus of the content. It is a subproperty of\n      contentLocation intended primarily for more technical and detailed materials. For example with a Dataset, it indicates\n      areas that the dataset describes: a dataset of New York weather would have spatialCoverage which was the place: the state of New York.",
+            "owl:cardinality": "many",
+            "oneOf": [
+              {
+                "description": "Location information",
+                "@type": "AdministrativeArea",
+                "type": "object",
+                "properties": {
+                  "locationType": {
+                    "description": "Categorization of how the location relates to the dataset or computational tool",
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "residence",
+                          "exposure",
+                          "collection",
+                          "screening",
+                          "treatment",
+                          "study location",
+                          "other",
+                          "unknown"
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "residence",
+                            "exposure",
+                            "collection",
+                            "screening",
+                            "treatment",
+                            "study location",
+                            "other",
+                            "unknown"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "administrativeType": {
+                    "description": "the type of administrative area",
+                    "type": "string",
+                    "enum": [
+                      "province",
+                      "district",
+                      "chiefdom",
+                      "village",
+                      "city",
+                      "country",
+                      "prefecture",
+                      "sub-prefecture",
+                      "clan",
+                      "Federal Capital Territory",
+                      "state",
+                      "Local Government Area",
+                      "ward"
+                    ]
+                  },
+                  "alternateName": {
+                    "description": "An alias for the location.",
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "identifier": {
+                    "description": "An identifier for the location, preferably a Wikidata ID.",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "The name of the item.",
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Location information",
+                  "@type": "AdministrativeArea",
+                  "type": "object",
+                  "properties": {
+                    "locationType": {
+                      "description": "Categorization of how the location relates to the dataset or computational tool",
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "residence",
+                            "exposure",
+                            "collection",
+                            "screening",
+                            "treatment",
+                            "study location",
+                            "other",
+                            "unknown"
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "residence",
+                              "exposure",
+                              "collection",
+                              "screening",
+                              "treatment",
+                              "study location",
+                              "other",
+                              "unknown"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "administrativeType": {
+                      "description": "the type of administrative area",
+                      "type": "string",
+                      "enum": [
+                        "province",
+                        "district",
+                        "chiefdom",
+                        "village",
+                        "city",
+                        "country",
+                        "prefecture",
+                        "sub-prefecture",
+                        "clan",
+                        "Federal Capital Territory",
+                        "state",
+                        "Local Government Area",
+                        "ward"
+                      ]
+                    },
+                    "alternateName": {
+                      "description": "An alias for the location.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    },
+                    "identifier": {
+                      "description": "An identifier for the location, preferably a Wikidata ID.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "The name of the item.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "temporalCoverage": {
+            "description": "The temporalCoverage of a CreativeWork indicates the period that the content applies to, i.e. that it describes, either as a DateTime or as a textual string indicating a time period in [ISO 8601 time interval format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals). In\n      the case of a Dataset it will typically indicate the relevant time period in a precise notation (e.g. for a 2011 census dataset, the year 2011 would be written \"2011/2012\"). Other forms of content e.g. ScholarlyArticle, Book, TVSeries or TVEpisode may indicate their temporalCoverage in broader terms - textually or via well-known URL.\n      Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via \"1939/1945\".\n\nOpen-ended date ranges can be written with \"..\" in place of the end date. For example, \"2015-11/..\" indicates a range beginning in November 2015 and with no specified final date. This is tentative and might be updated in future when ISO 8601 is officially updated.",
+            "owl:cardinality": "many",
+            "oneOf": [
+              {
+                "description": "Temporal information",
+                "@type": "TemporalInterval",
+                "type": "object",
+                "properties": {
+                  "temporalType": {
+                    "description": "Categorization of how the date/temporal interval relates to the dataset or computational tool",
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "exposure",
+                          "collection",
+                          "screening",
+                          "treatment",
+                          "study date",
+                          "other",
+                          "unknown"
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "exposure",
+                            "collection",
+                            "screening",
+                            "treatment",
+                            "study date",
+                            "other",
+                            "unknown"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "startDate": {
+                    "description": "A start date. ",
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "name": {
+                    "description": "String describing the temporal interval",
+                    "type": "string"
+                  },
+                  "endDate": {
+                    "description": "An end date.",
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "duration": {
+                    "description": "A time interval in ISO 8601 duration format.",
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Temporal information",
+                  "@type": "TemporalInterval",
+                  "type": "object",
+                  "properties": {
+                    "temporalType": {
+                      "description": "Categorization of how the date/temporal interval relates to the dataset or computational tool",
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "exposure",
+                            "collection",
+                            "screening",
+                            "treatment",
+                            "study date",
+                            "other",
+                            "unknown"
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "exposure",
+                              "collection",
+                              "screening",
+                              "treatment",
+                              "study date",
+                              "other",
+                              "unknown"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "startDate": {
+                      "description": "A start date. ",
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "name": {
+                      "description": "String describing the temporal interval",
+                      "type": "string"
+                    },
+                    "endDate": {
+                      "description": "An end date.",
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "duration": {
+                      "description": "A time interval in ISO 8601 duration format.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "description": {
+            "description": "A description of the item.",
+            "owl:cardinality": "one",
             "type": "string"
           },
-          "keywords": {
-            "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See [background notes](/docs/datamodel.html#identifierBg) for more details.\n        ",
+            "owl:cardinality": "many",
             "oneOf": [
               {
                 "type": "string"
@@ -647,59 +911,49 @@
               }
             ]
           },
-          "license": {
-            "description": "A license document that applies to this content, typically indicated by URL.",
-            "type": "string"
-          },
-          "description": {
-            "description": "A description of the item.",
-            "type": "string"
-          },
-          "identifier": {
-            "description": "The identifier property represents any kind of identifier for any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See [background notes](/docs/datamodel.html#identifierBg) for more details.\n        ",
-            "type": "string"
-          },
           "name": {
             "description": "The name of the item.",
+            "owl:cardinality": "one",
             "type": "string"
-          },
-          "url": {
-            "description": "URL of the item.",
-            "type": "string",
-            "format": "uri"
           }
         },
         "required": [
-          "contain_geo_codes",
-          "contain_phi",
-          "cost",
-          "domain_team_relevance",
-          "justification",
-          "author",
-          "license",
+          "funding",
+          "distribution",
+          "measurementTechnique",
+          "creator",
           "description",
           "identifier",
-          "name",
-          "url"
+          "name"
         ],
-        "recommended": [],
-        "optional": []
+        "recommended": [
+          "infectiousAgent",
+          "healthCondition",
+          "species",
+          "citation",
+          "license",
+          "spatialCoverage",
+          "temporalCoverage"
+        ],
+        "optional": [
+          "sdPublisher"
+        ]
       },
       "schemaVersion": [
         "https://schema.org/docs/releases.html#v28.1"
       ]
     },
     {
-      "@id": "move:myProp",
+      "@id": "move:sourceOrganizationMOVE",
       "@type": "rdf:Property",
-      "rdfs:comment": "test property",
-      "rdfs:label": "myProp",
+      "rdfs:comment": "source organization",
+      "rdfs:label": "sourceOrganizationMOVE",
       "schema:domainIncludes": {
         "@id": "move:Dataset"
       },
       "schema:rangeIncludes": [
         {
-          "@id": "schema:Text"
+          "@id": "schema:Organization"
         }
       ]
     }
