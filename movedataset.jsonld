@@ -21,55 +21,39 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "sourceOrganizationMOVE": {
-            "description": "source organization",
+          "topicCategory": {
+            "description": "Topic of the work. This topic may be assigned by a human curator or through automated algorithms.",
             "owl:cardinality": "many",
-            "@type": "Organization",
-            "type": "object",
-            "properties": {
-              "description": {
-                "type": "string"
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "description": "Topic assigned to the work.",
+                  "type": "string",
+                  "vocabulary": {
+                    "ontology": [
+                      "edam"
+                    ],
+                    "children_of": [
+                      "http://edamontology.org/topic_0003"
+                    ]
+                  },
+                  "strict": true
+                }
               },
-              "legalName": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "sameAs": {
+              {
+                "description": "Topic assigned to the work.",
                 "type": "string",
-                "format": "uri"
-              },
-              "topic": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                ]
-              },
-              "type": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                ]
+                "vocabulary": {
+                  "ontology": [
+                    "edam"
+                  ],
+                  "children_of": [
+                    "http://edamontology.org/topic_0003"
+                  ]
+                },
+                "strict": true
               }
-            },
-            "required": [
-              "description",
-              "legalName",
-              "name",
-              "sameAs",
-              "topic",
-              "type"
             ]
           },
           "infectiousAgent": {
@@ -595,6 +579,24 @@
               }
             ]
           },
+          "sourceOrganization": {
+            "description": "The Organization on whose behalf the creator was working. No action needed, this will be the 'NIAID CREID Network' by default. ",
+            "@type": "Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "the name of the organization",
+                "const": "Multi-Omics Vaccine Evaluation"
+              },
+              "alternateName": {
+                "description": "Other names by which the organization is referred (e.g. abbreviations like WHO for World Health Organization)",
+                "const": "MOVE"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
           "spatialCoverage": {
             "description": "The spatialCoverage of a CreativeWork indicates the place(s) which are the focus of the content. It is a subproperty of\n      contentLocation intended primarily for more technical and detailed materials. For example with a Dataset, it indicates\n      areas that the dataset describes: a dataset of New York weather would have spatialCoverage which was the place: the state of New York.",
             "owl:cardinality": "many",
@@ -933,7 +935,9 @@
           "citation",
           "license",
           "spatialCoverage",
-          "temporalCoverage"
+          "temporalCoverage",
+          "topicCategory",
+          "sourceOrganization"
         ],
         "optional": [
           "sdPublisher"
@@ -944,16 +948,19 @@
       ]
     },
     {
-      "@id": "move:sourceOrganizationMOVE",
+      "@id": "move:topicCategory",
       "@type": "rdf:Property",
-      "rdfs:comment": "source organization",
-      "rdfs:label": "sourceOrganizationMOVE",
+      "rdfs:comment": "Topic of the work. This topic may be assigned by a human curator or through automated algorithms.",
+      "rdfs:label": "topicCategory",
       "schema:domainIncludes": {
         "@id": "move:Dataset"
       },
       "schema:rangeIncludes": [
         {
-          "@id": "schema:Organization"
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "nde:DefinedTerm"
         }
       ]
     }
