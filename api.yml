@@ -910,7 +910,7 @@ info:
   x-translator: 
     component: KP
     team: 
-      - "Service Provider"
+      - "DOGSLED"
 openapi: "3.0.0"
 paths: 
   /gene: 
